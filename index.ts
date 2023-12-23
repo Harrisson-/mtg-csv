@@ -6,8 +6,9 @@ import { SearchResult, ScryfallGetSearchParams} from './models/search';
 const baseUrl = 'https://api.scryfall.com';
 const setAbbreviation = 'CLB';
 
+// TODO need a 'q' param serialization based on some SearchResultItem properties
 const params: ScryfallGetSearchParams = {
-  q: 't',
+  q: 't', // ex : q=set:snc+frame:showcase
   dir: 'auto',
   format: 'json',
 }
