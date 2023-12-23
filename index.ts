@@ -1,20 +1,30 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { Parser } from '@json2csv/plainjs';
 import * as fs from 'fs';
+import { SearchResult, ScryfallGetSearchParams} from './models/search';
 
 const baseUrl = 'https://api.scryfall.com';
 const setAbbreviation = 'CLB';
 
+const params: ScryfallGetSearchParams = {
+  q: 't',
+  dir: 'auto',
+  format: 'json',
+}
+
+const serializedParams = serialize(params);
+
+console.log('url', `${baseUrl}/cards/search?${serializedParams}`,)
+
 // TODO: make the url adaptable
 const requestObject: AxiosRequestConfig = {
   method: 'get',
-  url:  `${baseUrl}/cards/search?order=cmc&q=c%3Ared+pow%3D3`, //`https://api.scryfall.com/sets/${setAbbreviation}`,
+  url: `${baseUrl}/cards/search?${serializedParams}`,
   responseType: 'json',
 }
 
-  axios(requestObject).then((jsonResult: AxiosResponse<SearchResult>) => {
+axios(requestObject).then((jsonResult: AxiosResponse<SearchResult>) => {
   try {
-    console.log(jsonResult.data.data[0]);
     const sets = jsonResult.data.data.map((set: any) => ({'number': set.collector_number, 'code': set.code, 'name': set.name, 'set': set.set}));
     const fields = ['number', 'code', 'name', 'set'];
     const opts = {fields};
@@ -31,3 +41,12 @@ const requestObject: AxiosRequestConfig = {
     console.error(e);
   }
 })
+
+function serialize(obj: any) {
+  var str = [];
+  for (var p in obj)
+    if (obj.hasOwnProperty(p)) {
+      str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+    }
+  return str.join("&");
+}

@@ -1,12 +1,12 @@
 type SearchOrder = 'name' | 'set' | 'released' | 'rarity' | 'color' | 'usd' | 'tix' | 'eur' | 'cmc' | 'power' | 'toughness' | 'edhrec' | 'penny' | 'artist' | 'review';
 
-type SearchSort = 'auto' | 'asc' | 'desc';
+export type SearchSort = 'auto' | 'asc' | 'desc';
 
-type SearchUnique = 'cards' | 'art' | 'prints';
+export type SearchUnique = 'cards' | 'art' | 'prints';
 
-type SearchResultFormat = 'json' | 'csv';
+export type SearchResultFormat = 'json' | 'csv';
 
-interface ScryfallGetSearchParams {
+export interface ScryfallGetSearchParams {
   q: string,
   unique?: SearchUnique,
   order?: SearchOrder,
@@ -19,11 +19,11 @@ interface ScryfallGetSearchParams {
   pretty?: boolean
 };
 
-interface SearchResult {
+export interface SearchResult {
   data: SearchResultItem[],
 }
 
-interface SearchResultItem {
+export interface SearchResultItem {
   object: string,
   id: string,
   oracle_id: string,
@@ -151,4 +151,4 @@ interface SearchResultItem {
   }
 };
 
-type SearchResultLegality = 'restricted' | 'not_legal' | 'legal';
+export type SearchResultLegality = 'restricted' | 'not_legal' | 'legal';
