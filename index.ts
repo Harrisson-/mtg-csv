@@ -4,6 +4,7 @@ import * as fs from 'fs';
 
 const setAbbreviation = 'CLB';
 
+// TODO: make the url adaptable
 const requestObject: AxiosRequestConfig = {
   method: 'get',
   url:  `https://api.scryfall.com/cards/search?order=cmc&q=c%3Ared+pow%3D3`, //`https://api.scryfall.com/sets/${setAbbreviation}`,
