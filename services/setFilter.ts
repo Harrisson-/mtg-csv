@@ -1,5 +1,5 @@
 import { ART_SERIES } from "../const/constant";
-import { SetItem } from "../models/setFilter";
+import { SetItem } from "../models/filter";
 
 
 export function SetOnly(setList: SetItem[]) {

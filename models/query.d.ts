@@ -1,6 +1,6 @@
 export interface ScryfallQuery {
-    color?: string, // color
-    commander?: string, //
+    color?: string,
+    commander?: string, // same as color
     type?: string,
     game?: string, // attention (game:paper)
     mana?: string, // {R}

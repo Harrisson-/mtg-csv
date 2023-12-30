@@ -20,3 +20,5 @@ export interface SetItem  {
     foil_only: boolean,
     icon_svg_uri: string,
 }
+
+export type mtgColor = 'W' | 'U' | 'B' | 'R' | 'G' | 'C'
