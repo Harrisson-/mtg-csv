@@ -20,7 +20,7 @@ const query: ScryfallQuery = {
   color: '',
   commander: '',
   type: '',
-  mana: '{R}',
+  // mana: '{R}',
   pow: 3,
   rarity: '',
 }
@@ -35,7 +35,17 @@ const serializedParams = serializeParams(params);
 
 console.log('url', `${baseUrl}/cards/search?${serializedParams}`,)
 
-// TODO: make the url adaptable
+const requestSets: AxiosRequestConfig = {
+  method: 'get',
+  url: `${baseUrl}/sets`,
+  responseType: 'json',
+}
+
+axios(requestSets).then((jsonSets: AxiosResponse<SearchResult>) => {
+  console.log('list of all sets:', jsonSets.data.data.map((set: any) => ({ 'name': set.name, 'code': set.code })));
+});
+
+console.log('serializedParams', serializedParams);
 const requestObject: AxiosRequestConfig = {
   method: 'get',
   url: `${baseUrl}/cards/search?${serializedParams}`,
@@ -43,20 +53,18 @@ const requestObject: AxiosRequestConfig = {
 }
 
 axios(requestObject).then((jsonResult: AxiosResponse<SearchResult>) => {
-  try {
-    const sets = jsonResult.data.data.map((set: any) => ({'number': set.collector_number, 'code': set.code, 'name': set.name, 'set': set.set}));
-    const fields = ['number', 'code', 'name', 'set'];
-    const opts = {fields};
-    const parser = new Parser(opts);
+  const sets = jsonResult.data.data.map((set: any) => ({'number': set.collector_number, 'code': set.code, 'name': set.name, 'set': set.set}));
+  const fields = ['number', 'code', 'name', 'set'];
+  const opts = {fields};
+  const parser = new Parser(opts);
 
-    const csv = parser.parse(sets);
+  const csv = parser.parse(sets);
 
-    fs.writeFile('./csv-files/test.csv', csv, (err: any) => {
-      if (err) {
-        console.error(err);
-      }
-    });
-  } catch(e) {
-    console.error(e);
-  }
-})
+  fs.writeFile('./csv-files/test.csv', csv, (err: any) => {
+    if (err) {
+      console.error(err);
+    }
+  });
+}).catch((e: Error) =>  {
+  console.error(e);
+});
