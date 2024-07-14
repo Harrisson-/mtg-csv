@@ -41,11 +41,11 @@ function createPalette(colorsArray: number[][], steps: number): number[][] {
 
     for(let step = 0; step <= steps; step++) {
       palette[colorIndex] = [];
-      palette[colorIndex].push(...[
+      palette[colorIndex].push(
         startColor[0] + (rRatio * step),
         startColor[1] + (gRatio * step),
         startColor[2] + (bRatio * step),
-      ]);
+      );
       colorIndex += 1;
     }
     palette[colorIndex] = endColor;
@@ -58,3 +58,5 @@ export function buildPalette(colorsArray: string[], steps: number): string[] {
   const palette = createPalette(rgbcolors, steps);
   return palette.map(rgbcolor => rgbToHex(rgbcolor));
 }
+
+["#fc8393", "#ec7a78", "#dc715d", "#cc6842", "#bc5f27", "#ac560c", "#ad570c", "#8d6827", "#6d7942", "#4d8a5d", "#2d9b78", "#0dac93", "#0fab94"] 
