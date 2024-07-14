@@ -5,7 +5,7 @@
  * @param hexColor {string}
  * @returns 
  */
-function hextoRGB(hexColor: string): number[] {
+export function hextoRGB(hexColor: string): number[] {
   const colorArray = hexColor.replace(/^#?([a-f\d])([a-f\d])([a-f\d])$/i, (_m, r, g, b) => '#' + r + r + g + g + b + b)
   .substring(1).match(/.{2}/g) ?? [];
   return colorArray.map(color => parseInt(color, 16));
@@ -17,7 +17,7 @@ function hextoRGB(hexColor: string): number[] {
  * @param rgbColor {number[]}
  * @returns { string }
  */
-function rgbToHex(rgbColor: number[]): string {
+export function rgbToHex(rgbColor: number[]): string {
   const r = rgbColor[0].toString(16);
   const g = rgbColor[1].toString(16);
   const b = rgbColor[2].toString(16);
