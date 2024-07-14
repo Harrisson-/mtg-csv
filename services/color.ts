@@ -58,5 +58,3 @@ export function buildPalette(colorsArray: string[], steps: number): string[] {
   const palette = createPalette(rgbcolors, steps);
   return palette.map(rgbcolor => rgbToHex(rgbcolor));
 }
-
-["#fc8393", "#ec7a78", "#dc715d", "#cc6842", "#bc5f27", "#ac560c", "#ad570c", "#8d6827", "#6d7942", "#4d8a5d", "#2d9b78", "#0dac93", "#0fab94"] 
