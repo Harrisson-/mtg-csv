@@ -29,27 +29,32 @@ export function rgbToHex(rgbColor: number[]): string {
  * @param colorsArray {number[][]}
  * @param stepBetween {number}
  */
-function createPalette(colorsArray: number[][], stepBetween: number): number[][] {
+function createPalette(colorsArray: number[][], steps: number): number[][] {
   const palette: number[][] = [];
-  for (let index = 0; index <= colorsArray.length -1; index++) {
+  let colorIndex = 0;
+  for (let index = 0; index < colorsArray.length -1; index++) {
     const startColor = colorsArray[index];
     const endColor = colorsArray[index + 1];
-    const rRatio = (endColor[0] - startColor[0]) / stepBetween;
-    const gRatio = (endColor[1] - startColor[1]) / stepBetween;
-    const bRatio = (endColor[2] - startColor[2]) / stepBetween;
-    for(let step = 0; step < stepBetween; step++) {
-      palette[palette.length - 1 + index + step] = [
-        startColor[0] + rRatio,
-        startColor[1] + gRatio,
-        startColor[2] + bRatio,
-      ];
+    const rRatio = Math.round((endColor[0] - startColor[0]) / steps);
+    const gRatio = Math.round((endColor[1] - startColor[1]) / steps);
+    const bRatio = Math.round((endColor[2] - startColor[2]) / steps);
+
+    for(let step = 0; step <= steps; step++) {
+      palette[colorIndex] = [];
+      palette[colorIndex].push(...[
+        startColor[0] + (rRatio * step),
+        startColor[1] + (gRatio * step),
+        startColor[2] + (bRatio * step),
+      ]);
+      colorIndex += 1;
     }
+    palette[colorIndex] = endColor;
   }
   return palette;
 }
 
-export function buildPalette(colorsArray: string[], stepBetween: number): string[] {
+export function buildPalette(colorsArray: string[], steps: number): string[] {
   const rgbcolors = colorsArray.map(color => hextoRGB(color));
-  const palette = createPalette(rgbcolors, stepBetween);
+  const palette = createPalette(rgbcolors, steps);
   return palette.map(rgbcolor => rgbToHex(rgbcolor));
 }
